@@ -6,11 +6,26 @@ void main(){
   runApp(new MaterialApp(
     title: "INTENT",
     home: new Home(),
+    routes: <String, WidgetBuilder>{
+      '/Home' : (BuildContext context) => new Home(),
+      '/Hasil' : (BuildContext context) => new HalKedua()
+    },
   ));
 }
 
+TextEditingController controllerNim = new TextEditingController();
+  TextEditingController controllerNama = new TextEditingController();
+  TextEditingController controllerKontak = new TextEditingController();
+  TextEditingController controllerEmail = new TextEditingController();
+
+
+  String _agama="Islam";
+
+  String _Jk="";
+
 
   
+
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -19,15 +34,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   List<String> agama = ["Islam","Kristen","Hindu","Budha"];
-  String _agama="Islam";
+  
 
-  String _Jk="";
-
-  TextEditingController controllerNim = new TextEditingController();
-  TextEditingController controllerNama = new TextEditingController();
-  TextEditingController controllerKontak = new TextEditingController();
-  TextEditingController controllerEmail = new TextEditingController();
-
+  
   void _pilihJk(String value){
     setState(() {
       _Jk=value;
@@ -46,12 +55,7 @@ class _HomeState extends State<Home> {
         height: 300.0,
         child: new Column(
           children: <Widget>[
-            new Text("NIM :  ${controllerNim.text}"),
-            new Text("Nama Lengkap :  ${controllerNama.text}"),
-            new Text("Kontak :  ${controllerKontak.text}"),
-            new Text("E-Mail :  ${controllerEmail.text}"),
-            new Text("Jenis Kelamin :  $_Jk"),
-            new Text("Laki-laki:  $_agama"),
+            
           ],
         ),
       ),
@@ -164,7 +168,9 @@ class _HomeState extends State<Home> {
                 new RaisedButton(
                   child: new Text("OK"),
                   color: Colors.red,
-                  onPressed: (){kirimdata();},
+                  onPressed: (){
+                    Navigator.pushNamed(context, '/Hasil');
+                  },
                 )  
                  
 
@@ -172,6 +178,38 @@ class _HomeState extends State<Home> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class HalKedua extends StatelessWidget {
+
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: new AppBar(
+        title: new Text("HASIL BIO"),
+        
+      ),
+      body: new Container(
+        
+        child: 
+        new Card(
+          child: new Column(
+            
+            
+            children: <Widget>[
+            new Text("NIM :  ${controllerNim.text}"),
+            new Text("Nama Lengkap :  ${controllerNama.text}"),
+            new Text("Kontak :  ${controllerKontak.text}"),
+            new Text("E-Mail :  ${controllerEmail.text}"),
+            new Text("Jenis Kelamin :  $_Jk"),
+            new Text("Laki-laki:  $_agama"),
+            ],
+          ),
+        )
       ),
     );
   }
